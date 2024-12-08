@@ -1,0 +1,41 @@
+package com.jainyJobPortal.entity;
+
+import java.io.Serializable;
+import java.sql.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table
+public class JobSeekerApply implements Serializable {
+    
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer id;
+	
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="userId",referencedColumnName="user_account_id")
+	private JobSeekerProfile jobSeekerProfile;
+	
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="",referencedColumnName="jobPostId")
+	private JobPostActivity job;
+    
+	@DateTimeFormat(pattern="dd-mm-yyyy")
+	private Date applyDate;
+
+    private String coverLetter;
+    
+    public JobSeekerApply() {
+    	
+    }
+}

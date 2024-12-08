@@ -1,0 +1,33 @@
+package com.jainyJobPortal.repository;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.jainyJobPortal.entity.JobPostActivity;
+import com.jainyJobPortal.entity.RecruiterJobsDto;
+
+@Service
+public class JobPostActivityService {
+       
+	private final JobPostActivityRepository jobPostActivityRepository;
+	
+	
+	
+	public JobPostActivityService(JobPostActivityRepository jobPostActivityRepository) {
+		this.jobPostActivityRepository = jobPostActivityRepository;
+	}
+
+
+
+	public JobPostActivity addNew(JobPostActivity jobPostActivity) {
+		return jobPostActivityRepository.save(jobPostActivity);
+	}
+	
+	public List<RecruiterJobsDto> getRecruiterJobs(int recruiter){
+		
+		
+		return null;
+		
+	}
+}

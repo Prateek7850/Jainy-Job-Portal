@@ -1,0 +1,6 @@
+package com.jainyJobPortal.repository;
+
+public interface JobPostActivityRepository extends JpaRepository<JobPostActivity,Integer> {
+       
+	
+}

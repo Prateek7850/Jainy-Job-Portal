@@ -1,0 +1,9 @@
+package com.jainyJobPortal.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.jainyJobPortal.entity.JobSeekerApply;
+
+public interface JobSeekerApplyRepository extends JpaRepository<JobSeekerApply, Integer>{
+
+}

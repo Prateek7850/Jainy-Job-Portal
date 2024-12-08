@@ -1,0 +1,70 @@
+package com.jainyJobPortal.Controller;
+
+import java.util.Date;
+import java.util.Optional;
+
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.jainyJobPortal.Services.JobPostActivityService;
+import com.jainyJobPortal.Services.JobSeekerApplyService;
+import com.jainyJobPortal.Services.JobSeekerProfileService;
+import com.jainyJobPortal.Services.UsersService;
+import com.jainyJobPortal.entity.JobPostActivity;
+import com.jainyJobPortal.entity.JobSeekerApply;
+import com.jainyJobPortal.entity.JobSeekerProfile;
+import com.jainyJobPortal.entity.Users;
+
+@Controller
+public class JobSeekerApplyController {
+        
+	private final JobPostActivityService jobPostActivityService;
+	private final UsersService usersService;
+	private final JobSeekerProfileService jobSeekerProfileService;
+	private final JobSeekerApplyService jobSeekerApplyService;
+	public JobSeekerApplyController(JobPostActivityService jobPostActivityService,
+			UsersService usersService,JobSeekerApplyService jobSeekerApplyService,JobSeekerProfileService jobSeekerProfileService) {
+		this.jobPostActivityService = jobPostActivityService;
+		this.usersService = usersService;
+		this.jobSeekerProfileService=jobSeekerProfileService;
+        this.jobSeekerApplyService=jobSeekerApplyService;
+        
+	}
+    
+	@GetMapping("/job-details-apply/{id}")
+	public String display(@PathVariable("id") int id, Model model) {
+		JobPostActivity jobDetails = jobPostActivityService.getOne(id);
+		model.addAttribute("jobDetails",jobDetails);
+		model.addAttribute("user",usersService.getCurrentUserProfile());
+		return "job-details";
+	}
+	
+	@PostMapping("job-details/apply/{id}")
+	public String apply(@PathVariable("id") int id, JobSeekerApply jobSeekerApply) {
+		
+	     org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        
+	     if(!(authentication instanceof AnonymousAuthenticationToken)){
+               String currentUserName = authentication.getName();	    	 
+	          Users user= usersService.findByEmail(currentUserName);
+	          Optional<JobSeekerProfile> seekerProfile = jobSeekerProfileService.getOne(user.getUserId());
+	          JobPostActivity jobPostActivity = jobPostActivityService.getOne(id);
+	          if(seekerProfile.isPresent()&&jobPostActivity!=null) {
+	        	  jobSeekerApply.setUserId(seekerProfile.get());
+	        	  jobSeekerApply.setJob(jobPostActivity);
+	        	  jobSeekerApply.setApplyDate(new Date());
+	          }else {
+	        	  throw new RuntimeException("user not found");
+	          }
+	          jobSeekerApplyService.addNew(jobSeekerApply);
+	     }
+	  return "redirect:/dashboard/";     
+	}
+	     
+	}

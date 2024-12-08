@@ -1,0 +1,5 @@
+package com.jainyJobPortal.repository;
+
+public interface JobPostActivityRepository {
+
+}

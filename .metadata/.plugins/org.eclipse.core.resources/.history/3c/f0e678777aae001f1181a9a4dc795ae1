@@ -1,0 +1,17 @@
+package com.jainyJobPortal.Services;
+
+import org.springframework.stereotype.Service;
+
+import com.jainyJobPortal.repository.JobSeekerSaveRepository;
+
+@Service
+public class JobSeekerSaveService {
+   
+	private final JobSeekerSaveRepository jobSeekerSaveRepository;
+
+	public JobSeekerSaveService(JobSeekerSaveRepository jobSeekerSaveRepository) {
+		this.jobSeekerSaveRepository = jobSeekerSaveRepository;
+	}
+
+	
+}

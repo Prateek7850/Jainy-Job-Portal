@@ -1,0 +1,24 @@
+package com.jainyJobPortal.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
+@Entity
+public class JobPostActivity {
+    
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer jobPostId;
+	
+	@ManyToOne
+	@JoinColumn(name="postedById",referencedColumnName="userId")
+	private Users postedById;
+    
+	@ManyToOne
+	@JoinColumn(name= "jobLocationId",referencedColumnName="Id")
+	private JobLocation jobLocationId;
+}

@@ -1,0 +1,5 @@
+package com.jainyJobPortal.Config;
+
+public class MvcConfig {
+
+}

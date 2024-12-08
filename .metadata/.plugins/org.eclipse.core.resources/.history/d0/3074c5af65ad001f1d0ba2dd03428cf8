@@ -1,0 +1,23 @@
+package com.jainyJobPortal.Controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.jainyJobPortal.entity.JobSeekerProfile;
+import com.jainyJobPortal.repository.UsersRepository;
+
+@Controller
+@RequestMapping("/job-seeker-profile")
+public class JobSeekerProfileController {
+            
+	private JobSeekerProfile jobSeekerProfileService;
+	
+	private UsersRepository usersRepository;
+
+	public JobSeekerProfileController(JobSeekerProfile jobSeekerProfileService, UsersRepository usersRepository) {
+		this.jobSeekerProfileService = jobSeekerProfileService;
+		this.usersRepository = usersRepository;
+	}
+	
+
+}

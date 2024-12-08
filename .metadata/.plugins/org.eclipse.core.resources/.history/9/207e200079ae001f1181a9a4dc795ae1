@@ -1,0 +1,14 @@
+package com.jainyJobPortal.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.jainyJobPortal.entity.JobSeekerProfile;
+import com.jainyJobPortal.entity.JobSeekerSave;
+
+@Repository
+public interface JobSeekerSaveRepository extends JpaRepository<JobSeekerSave, Integer> {
+   
+	public List<JobSeekerave> findByUserId(JobSeekerProfile userAccountId);
+	
+}
